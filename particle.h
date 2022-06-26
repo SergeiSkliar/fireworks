@@ -26,13 +26,13 @@ public:
 
 	void Update(float deltaTime);
 	//void Draw(SDL_Renderer* renderer);
-	//void ExplodeSparks(int size);
+	void ExplodeSparks(float _x, float _y, int size);
 	//void ExplodeSmallProj(int size);
 	bool GetStatusofExplosion() const { return Exploded; }
-	float GetX() const { return p.x; }
-	float GetY() const { return p.y; }
-	void SetX(float _x) { p.x = _x; }
-	void SetY(float _y) { p.y = _y; }
+	virtual float GetX() const { return p.x; }
+	virtual float GetY() const { return p.y; }
+	virtual void SetX(float _x) { p.x = _x; }
+	virtual void SetY(float _y) { p.y = _y; }
 	void SetCoordinates(float _x, float _y) { p.x = _x; p.y = _y; }
 
 
@@ -47,13 +47,14 @@ private:
 //
 //};
 //
-//class Spark : public Projectile
-//{
-//public:
-//	Spark();
-//	Spark(float _x, float _y);
-//
-//private:
-//	Particle p;
-//};
+class Spark : public Projectile
+{
+public:
+	Spark();
+	Spark(float _x, float _y);
+
+private:
+	Particle spark;
+	bool Expired;
+};
 

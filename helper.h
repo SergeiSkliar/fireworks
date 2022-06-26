@@ -7,7 +7,12 @@ static constexpr int thickness = 5;
 static constexpr float init_speed = -100.0;
 
 
-static float RandomNum(float num)
+static float RandomFloat(float num)
 {
 	return ((float)rand() / RAND_MAX) * num;
+}
+
+static int RandomInt(int n)
+{
+	return (rand() / RAND_MAX) * n;
 }

@@ -22,7 +22,7 @@ private:
 
 	std::vector<Projectile> vecProjectiles;
 	//std::vector<SmallProjectile> vecSmallProjs;
-	//std::vector<Spark> vecSparks;
+	std::vector<Spark> vecSparks;
 
 	//std::vector<SDL_Rect> vecRect;
 

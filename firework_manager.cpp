@@ -97,7 +97,7 @@ void FireworksManager::UpdateFireworkManager()
 
 	if (Delay <= 0.1)
 	{
-		Delay = RandomNum(2.0) + 0.4;
+		Delay = RandomFloat(2.0) + 0.4;
 		Projectile temp(512.0, 512.0);
 		vecProjectiles.push_back(temp);
 		std::cout << vecProjectiles.size() << std::endl;
