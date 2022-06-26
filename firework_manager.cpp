@@ -1,7 +1,10 @@
 #include "firework_manager.h"
 #include <algorithm>
+#include <iostream>
+using namespace std;
 
-FireworksManager::FireworksManager() :mWindow(nullptr), mRenderer(nullptr), IsRunning(true), TicksCount(0)
+
+FireworksManager::FireworksManager() :mWindow(nullptr), mRenderer(nullptr), IsRunning(true), TicksCount(0), UpdatingFireworks(false)
 {
 }
 
@@ -32,6 +35,7 @@ bool FireworksManager::Initialize()
 	Projectile first(512.0, 512.0);
 	vecProjectiles.push_back(first);
 
+
 	return true;
 }
 
@@ -47,6 +51,9 @@ void FireworksManager::RunLoop()
 
 void FireworksManager::Shutdown()
 {
+	SDL_DestroyRenderer(mRenderer);
+	SDL_DestroyWindow(mWindow);
+	SDL_Quit();
 }
 
 void FireworksManager::ProcessInput()
@@ -76,26 +83,39 @@ void FireworksManager::UpdateFireworkManager()
 	while (!SDL_TICKS_PASSED(SDL_GetTicks(), TicksCount + 16))
 		;
 
-	float deltaTime = (SDL_GetTicks() - TicksCount) / 100.0f;
-	if (deltaTime > 0.1f)
+	float deltaTime = (SDL_GetTicks() - TicksCount) / 1000.0f;
+
+	if (deltaTime > 0.5f)
 	{
-		deltaTime = 0.1f;
+		deltaTime = 0.5f;
 	}
 	TicksCount = SDL_GetTicks();
+
+	UpdatingFireworks = true;
 
 	Delay -= deltaTime;
 
 	if (Delay <= 0.1)
 	{
 		Delay = RandomNum(2.0) + 0.4;
-		Projectile temp(512.0, 768.0);
+		Projectile temp(512.0, 512.0);
 		vecProjectiles.push_back(temp);
-		//std::cout << vecProjectiles.size() << std::endl;
+		std::cout << vecProjectiles.size() << std::endl;
 	}
-	for (auto & p : vecProjectiles)
+
+	for (auto& p : vecProjectiles)
 	{
 		p.Update(deltaTime);
+		//cout << p.GetX() << endl;
+		//cout << p.GetY() << endl;
 	}
+
+	UpdatingFireworks = false;
+	
+	//for (auto & p : vecProjectiles)
+	//{
+	//	p.Update(deltaTime);
+	//}
 
 	vecProjectiles.erase(std::remove_if(vecProjectiles.begin(), vecProjectiles.end(), [](Projectile& p) { return p.GetStatusofExplosion(); }), 
 		vecProjectiles.end());
@@ -103,23 +123,21 @@ void FireworksManager::UpdateFireworkManager()
 
 void FireworksManager::Draw()
 {
-	SDL_SetRenderDrawColor(mRenderer, 0,0,0,0);
+	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 0);
 	SDL_RenderClear(mRenderer);
-	SDL_SetRenderDrawColor(mRenderer, 255, 250, 250, 255);
-
-	for (const Projectile& p : vecProjectiles)
+	for (auto& p : vecProjectiles)
 	{
 
-		std::cout << vecProjectiles.size() << std::endl;
-		SDL_Rect proj{
-			static_cast<int>(p.GetX()),
-			static_cast<int>(p.GetY()),
-			thickness,
-			thickness
-		};
+
+		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
+
+		SDL_Rect proj;
+		proj.x = static_cast<int>(p.GetX() - thickness);
+		proj.y = static_cast<int>(p.GetY() - thickness);
+		proj.w = thickness;
+		proj.h = thickness;
 		SDL_RenderFillRect(mRenderer, &proj);
 	}
-
-
 	SDL_RenderPresent(mRenderer);
+
 }

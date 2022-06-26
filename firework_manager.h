@@ -21,9 +21,12 @@ private:
 	Uint32 TicksCount;
 
 	std::vector<Projectile> vecProjectiles;
-	std::vector<SmallProjectile> vecSmallProjs;
-	std::vector<Spark> vecSparks;
+	//std::vector<SmallProjectile> vecSmallProjs;
+	//std::vector<Spark> vecSparks;
+
+	//std::vector<SDL_Rect> vecRect;
 
 	bool IsRunning;
+	bool UpdatingFireworks;
 	float Delay = 0.0;
 };
