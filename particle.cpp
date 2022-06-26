@@ -107,4 +107,19 @@ Spark::Spark(float _x, float _y)
 
 void Spark::Update(float deltaTime)
 {
+	spark.lifetime += deltaTime;
+	if (spark.lifetime <= spark.fuse) // TODO refactor float comparison
+	{
+		// moving
+		spark.x += spark.vx * deltaTime;
+		spark.y += (spark.vy + Gravity) * deltaTime;
+	}
+	else
+	{
+		// spark expires
+		if (!Expired)
+		{
+			Expired = true;
+		}
+	}
 }

@@ -98,14 +98,22 @@ void FireworksManager::UpdateFireworkManager()
 	if (Delay <= 0.1)
 	{
 		Delay = RandomFloat(2.0) + 0.4;
-		Projectile temp(512.0, 512.0);
-		vecProjectiles.push_back(temp);
+		Projectile temp_proj(512.0, 512.0);
+		vecProjectiles.push_back(temp_proj);
 		std::cout << vecProjectiles.size() << std::endl;
+		Spark temp_spark();
 	}
 
 	for (auto& p : vecProjectiles)
 	{
 		p.Update(deltaTime);
+		//cout << p.GetX() << endl;
+		//cout << p.GetY() << endl;
+	}
+
+	for (auto& s : vecSparks)
+	{
+		s.Update(deltaTime);
 		//cout << p.GetX() << endl;
 		//cout << p.GetY() << endl;
 	}
@@ -119,6 +127,8 @@ void FireworksManager::UpdateFireworkManager()
 
 	vecProjectiles.erase(std::remove_if(vecProjectiles.begin(), vecProjectiles.end(), [](Projectile& p) { return p.GetStatusofExplosion(); }), 
 		vecProjectiles.end());
+	vecSparks.erase(std::remove_if(vecSparks.begin(), vecSparks.end(), [](Spark& s) { return s.IsExpired(); }), 
+		vecSparks.end());
 }
 
 void FireworksManager::Draw()
@@ -127,8 +137,6 @@ void FireworksManager::Draw()
 	SDL_RenderClear(mRenderer);
 	for (auto& p : vecProjectiles)
 	{
-
-
 		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
 		SDL_Rect proj;
@@ -137,6 +145,17 @@ void FireworksManager::Draw()
 		proj.w = thickness;
 		proj.h = thickness;
 		SDL_RenderFillRect(mRenderer, &proj);
+	}
+	for (auto& s : vecSparks)
+	{
+		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
+
+		SDL_Rect spa;
+		spa.x = static_cast<int>(s.GetX() - thickness);
+		spa.y = static_cast<int>(s.GetY() - thickness);
+		spa.w = thickness / 2;
+		spa.h = thickness / 2;
+		SDL_RenderFillRect(mRenderer, &spa);
 	}
 	SDL_RenderPresent(mRenderer);
 
