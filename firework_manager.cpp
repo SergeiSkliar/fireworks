@@ -101,7 +101,7 @@ void FireworksManager::UpdateFireworkManager()
 		Projectile temp_proj(512.0, 512.0);
 		vecProjectiles.push_back(temp_proj);
 		std::cout << vecProjectiles.size() << std::endl;
-		Spark temp_spark();
+		Spark temp_spark(temp_proj.GetX(), temp_proj.GetY());
 	}
 
 	for (auto& p : vecProjectiles)
