@@ -24,8 +24,7 @@ public:
 	Projectile(float _x, float _y);
 	~Projectile() = default;
 
-	void Update(float deltaTime);
-	//void Draw(SDL_Renderer* renderer);
+	virtual void Update(float deltaTime);
 	void ExplodeSparks(float _x, float _y, int size);
 	//void ExplodeSmallProj(int size);
 	bool GetStatusofExplosion() const { return Exploded; }
@@ -52,9 +51,17 @@ class Spark : public Projectile
 public:
 	Spark();
 	Spark(float _x, float _y);
+	~Spark() = default;
 
+	virtual float GetX() const { return spark.x; }
+	virtual float GetY() const { return spark.y; }
+	virtual void SetX(float _x) { spark.x = _x; }
+	virtual void SetY(float _y) { spark.y = _y; }
+
+	bool IsExpired() const { return Expired; }
+	void Update(float deltaTime) override;
 private:
 	Particle spark;
-	bool Expired;
+	bool Expired = false;
 };
 

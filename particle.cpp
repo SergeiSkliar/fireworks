@@ -70,48 +70,41 @@ void Projectile::Update(float deltaTime)
 
 void Projectile::ExplodeSparks(float _x, float _y, int size)
 {
-	for (int i = 0; i < size; ++i)
-	{
-		Spark s;
-		s.x = 
-	}
+	//for (int i = 0; i < size; ++i)
+	//{
+	//	Spark s;
+	//	s.Update(deltaTime);
+	//}
 }
 
 
-//void Projectile::ExplodeSparks(int size)
-//{
-//	for (int i = 0; i <= size; ++i)
-//	{
-//		Spark spark;
-//		
-//
-//	}
-//}
-//
-//void Projectile::ExplodeSmallProj(int size)
-//{
-//}
-//
-//Spark::Spark()
-//{
-//}
-//
-//Spark::Spark(float _x, float _y)
-//{
-//	p.x = _x;
-//	p.y = _y;
-//	p.speed = RandomFloat(50);
-//
-//	p.vx = RandomFloat(25);
-//	p.vy = -p.speed;
-//
-//	p.fuse = RandomFloat(2.0);
-//}
 
 Spark::Spark()
 {
+	spark.x = 0;
+	spark.y = 0;
+	spark.lifetime = 0.0;
+
+	spark.angle = RandomFloat(100.0) - 50.0;
+	spark.vx = spark.angle;
+	spark.vy = -100.0;
+
+	spark.fuse = RandomFloat(2.0) + 1.5;
 }
 
 Spark::Spark(float _x, float _y)
+{
+	spark.x = _x;
+	spark.y = _y;
+	spark.lifetime = 0.0;
+
+	spark.angle = RandomFloat(100.0) - 50.0;
+	spark.vx = spark.angle;
+	spark.vy = -100.0;
+
+	spark.fuse = RandomFloat(2.0) + 1.5;
+}
+
+void Spark::Update(float deltaTime)
 {
 }
