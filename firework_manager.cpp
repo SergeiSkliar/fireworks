@@ -157,8 +157,8 @@ void FireworksManager::Draw()
 		SDL_Rect spa;
 		spa.x = static_cast<int>(s.GetX() - thickness);
 		spa.y = static_cast<int>(s.GetY() - thickness);
-		spa.w = thickness / 2;
-		spa.h = thickness / 2;
+		spa.w = thickness * 0.75;
+		spa.h = thickness * 0.75;
 		SDL_RenderFillRect(mRenderer, &spa);
 	}
 	SDL_RenderPresent(mRenderer);

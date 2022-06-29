@@ -37,8 +37,7 @@ void Projectile::Update(float deltaTime)
 {
 	p.lifetime += deltaTime;
 
-	//p.vx = cosf(p.angle) * p.speed;
-	//p.vy = sinf(p.angle) * p.speed;
+	
 	if (p.lifetime <= p.fuse) // TODO refactor float comparison
 	{
 		// moving
@@ -78,9 +77,9 @@ Spark::Spark()
 	spark.y = 0;
 	spark.lifetime = 0.0;
 
-	spark.angle = RandomFloat(100.0) - 50.0;
-	spark.vx = spark.angle;
-	spark.vy = -100.0;
+	spark.angle = RandomFloat(2.0 * PI);
+	spark.vx = cosf(spark.angle) * spark.speed;
+	spark.vy = sinf(spark.angle) * spark.speed;
 
 	spark.fuse = RandomFloat(2.0) + 1.5;
 }
@@ -91,9 +90,11 @@ Spark::Spark(float _x, float _y)
 	spark.y = _y;
 	spark.lifetime = 0.0;
 
-	spark.angle = RandomFloat(100.0) - 50.0;
-	spark.vx = spark.angle;
-	spark.vy = -100.0;
+	spark.angle = RandomFloat(2.0 * PI);
+	//spark.vx = cosf(spark.angle) * spark.speed;
+	//spark.vy = sinf(spark.angle) * spark.speed;
+	spark.vx = cosf(spark.angle) * 50;
+	spark.vy = sinf(spark.angle) * 50;
 
 	spark.fuse = RandomFloat(2.0) + 1.5;
 }
