@@ -10,13 +10,13 @@ FireworksManager::FireworksManager() :mWindow(nullptr), mRenderer(nullptr), IsRu
 
 bool FireworksManager::Initialize()
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
 		return false;
 	}
 
-	mWindow = SDL_CreateWindow("Game Programming in C++ (Chapter 2)", 100, 100, 1024, 768, 0);
+	mWindow = SDL_CreateWindow("Fireworks", 100, 100, 1024, 768, 0);
 	if (!mWindow)
 	{
 		SDL_Log("Failed to create window: %s", SDL_GetError());
@@ -109,6 +109,10 @@ void FireworksManager::UpdateFireworkManager()
 		p.Update(deltaTime);
 		//cout << p.GetX() << endl;
 		//cout << p.GetY() << endl;
+		if (p.GetStatusofExplosion())
+		{
+			ExplodeSparks(p, 20, deltaTime);
+		}
 	}
 
 	for (auto& s : vecSparks)
@@ -159,4 +163,13 @@ void FireworksManager::Draw()
 	}
 	SDL_RenderPresent(mRenderer);
 
+}
+
+void FireworksManager::ExplodeSparks(Projectile& p, int size, float deltaTime)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		Spark s{p.GetX(), p.GetY()};
+		vecSparks.push_back(s);
+	}
 }

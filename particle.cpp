@@ -58,7 +58,7 @@ void Projectile::Update(float deltaTime)
 			//ExlosionType = RandomFloat(1);
 			//if (ExlosionType == 0)
 			//{
-				ExplodeSparks(p.x,p.y,RandomInt(100) + 15);
+				// ExplodeSparks(p.x,p.y,RandomInt(100) + 15);
 			//}
 			//else
 			//{
@@ -68,14 +68,7 @@ void Projectile::Update(float deltaTime)
 	}
 }
 
-void Projectile::ExplodeSparks(float _x, float _y, int size)
-{
-	//for (int i = 0; i < size; ++i)
-	//{
-	//	Spark s;
-	//	s.Update(deltaTime);
-	//}
-}
+
 
 
 

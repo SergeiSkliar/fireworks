@@ -16,6 +16,9 @@ private:
 	void UpdateFireworkManager();
 	void Draw();
 
+	void ExplodeSparks(Projectile& p, int size, float deltaTime);
+	//void ExplodeSmallProj(int size);
+
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
 	Uint32 TicksCount;

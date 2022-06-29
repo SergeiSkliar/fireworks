@@ -25,8 +25,7 @@ public:
 	~Projectile() = default;
 
 	virtual void Update(float deltaTime);
-	void ExplodeSparks(float _x, float _y, int size);
-	//void ExplodeSmallProj(int size);
+
 	bool GetStatusofExplosion() const { return Exploded; }
 	virtual float GetX() const { return p.x; }
 	virtual float GetY() const { return p.y; }
