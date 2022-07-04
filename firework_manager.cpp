@@ -32,10 +32,6 @@ bool FireworksManager::Initialize()
 
 	TicksCount = SDL_GetTicks();
 
-	Projectile first(512.0, 512.0);
-	vecProjectiles.push_back(first);
-
-
 	return true;
 }
 
@@ -98,10 +94,10 @@ void FireworksManager::UpdateFireworkManager()
 	if (Delay <= 0.1)
 	{
 		Delay = RandomFloat(2.0) + 0.4;
-		Projectile temp_proj(512.0, 512.0);
+		Projectile temp_proj(512.0, 786.0);
 		vecProjectiles.push_back(temp_proj);
 		std::cout << vecProjectiles.size() << std::endl;
-		Spark temp_spark(temp_proj.GetX(), temp_proj.GetY());
+		Spark temp_spark(temp_proj);
 	}
 
 	for (auto& p : vecProjectiles)
@@ -169,7 +165,7 @@ void FireworksManager::ExplodeSparks(Projectile& p, int size, float deltaTime)
 {
 	for (int i = 0; i < size; ++i)
 	{
-		Spark s{p.GetX(), p.GetY()};
+		Spark s(p);
 		vecSparks.push_back(s);
 	}
 }

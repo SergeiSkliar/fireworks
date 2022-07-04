@@ -27,7 +27,7 @@ Projectile::Projectile(float _x, float _y)
 	p.angle = RandomFloat(100.0) - 50.0;
 
 	p.vx = p.angle;
-	p.vy = -100.0;
+	p.vy = RandomFloat(-150.0) - 100.0; // -100.0 - minimum speed
 
 	p.fuse = RandomFloat(2.0) + 1.5;
 }
@@ -97,6 +97,22 @@ Spark::Spark(float _x, float _y)
 	spark.vy = sinf(spark.angle) * 50;
 
 	spark.fuse = RandomFloat(2.0) + 1.5;
+}
+
+Spark::Spark(const Projectile& pa)
+{
+	spark.x = pa.GetX();
+	spark.y = pa.GetY();
+	spark.lifetime = 0.0;
+
+	spark.angle = RandomFloat(2.0 * PI);
+	//spark.vx = cosf(spark.angle) * spark.speed;
+	//spark.vy = sinf(spark.angle) * spark.speed;
+	spark.speed = RandomFloat(50.0);
+	spark.vx = cosf(spark.angle) * pa.GetLifetime() * spark.speed;
+	spark.vy = sinf(spark.angle) * pa.GetLifetime() * spark.speed;
+
+	spark.fuse = pa.GetLifetime() / 2;
 }
 
 void Spark::Update(float deltaTime)

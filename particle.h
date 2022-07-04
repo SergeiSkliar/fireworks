@@ -31,6 +31,9 @@ public:
 	virtual float GetY() const { return p.y; }
 	virtual void SetX(float _x) { p.x = _x; }
 	virtual void SetY(float _y) { p.y = _y; }
+	float GetAngle() const { return p.angle; }
+	float GetLifetime() const { return p.lifetime; }
+	float GetFuse() const { return p.fuse; }
 	void SetCoordinates(float _x, float _y) { p.x = _x; p.y = _y; }
 
 
@@ -50,6 +53,7 @@ class Spark : public Projectile
 public:
 	Spark();
 	Spark(float _x, float _y);
+	Spark(const Projectile& pa);
 	~Spark() = default;
 
 	virtual float GetX() const { return spark.x; }
