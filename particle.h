@@ -52,7 +52,6 @@ class Spark : public Projectile
 {
 public:
 	Spark();
-	Spark(float _x, float _y);
 	Spark(const Projectile& pa);
 	~Spark() = default;
 

@@ -84,21 +84,6 @@ Spark::Spark()
 	spark.fuse = RandomFloat(2.0) + 1.5;
 }
 
-Spark::Spark(float _x, float _y)
-{
-	spark.x = _x;
-	spark.y = _y;
-	spark.lifetime = 0.0;
-
-	spark.angle = RandomFloat(2.0 * PI);
-	//spark.vx = cosf(spark.angle) * spark.speed;
-	//spark.vy = sinf(spark.angle) * spark.speed;
-	spark.vx = cosf(spark.angle) * 50;
-	spark.vy = sinf(spark.angle) * 50;
-
-	spark.fuse = RandomFloat(2.0) + 1.5;
-}
-
 Spark::Spark(const Projectile& pa)
 {
 	spark.x = pa.GetX();
