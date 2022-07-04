@@ -1,3 +1,3 @@
 # firework_test_assignment
 
-![fireworks_first_version](https://github.com/SergeiSkliar/fireworks/blob/master/fireworks%20v3.gif)
+![image](https://user-images.githubusercontent.com/54177942/177118999-38ffab53-3266-4052-b423-0ee90ec8e4d7.png)
