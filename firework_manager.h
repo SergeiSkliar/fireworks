@@ -16,15 +16,16 @@ private:
 	void UpdateFireworkManager();
 	void Draw();
 
-	void ExplodeSparks(Projectile& p, int size, float deltaTime);
-	//void ExplodeSmallProj(int size);
+	void ExplodeProjectile(const Projectile& p, float deltaTime);
+	void ExplodeSmallProjectile(const SmallProjectile& sp, float deltaTime);
+	//void ExplodeSmallProj(const SmallProjectile& p, int size, float deltaTime);
 
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
 	Uint32 TicksCount;
 
 	std::vector<Projectile> vecProjectiles;
-	//std::vector<SmallProjectile> vecSmallProjs;
+	std::vector<SmallProjectile> vecSmallProjs;
 	std::vector<Spark> vecSparks;
 
 	//std::vector<SDL_Rect> vecRect;

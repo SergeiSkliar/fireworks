@@ -41,8 +41,6 @@ void Projectile::Update(float deltaTime)
 	if (p.lifetime <= p.fuse) // TODO refactor float comparison
 	{
 		// moving
-	//	p.speed = RandomFloat(200.0);
-	//	float angle = RandomFloat(2.0 * PI);
 		p.x += p.vx * deltaTime;
 		p.y += (p.vy + Gravity) * deltaTime;
 	}
@@ -115,6 +113,54 @@ void Spark::Update(float deltaTime)
 		if (!Expired)
 		{
 			Expired = true;
+		}
+	}
+}
+
+SmallProjectile::SmallProjectile()
+{
+	sp.x = 0;
+	sp.y = 0;
+	sp.lifetime = 0.0;
+
+	sp.angle = RandomFloat(2.0 * PI);
+	sp.vx = cosf(sp.angle) * sp.speed;
+	sp.vy = sinf(sp.angle) * sp.speed;
+
+	sp.fuse = RandomFloat(2.0) + 1.5;
+}
+
+SmallProjectile::SmallProjectile(const Projectile& pa)
+{
+	sp.x = pa.GetX();
+	sp.y = pa.GetY();
+	sp.lifetime = 0.0;
+
+	sp.angle = RandomFloat(2.0 * PI);
+	//spark.vx = cosf(spark.angle) * spark.speed;
+	//spark.vy = sinf(spark.angle) * spark.speed;
+	sp.speed = RandomFloat(50.0);
+	sp.vx = cosf(sp.angle) * pa.GetLifetime() * sp.speed;
+	sp.vy = sinf(sp.angle) * pa.GetLifetime() * sp.speed;
+
+	sp.fuse = pa.GetLifetime() / 2;
+}
+
+void SmallProjectile::Update(float deltaTime)
+{
+	sp.lifetime += deltaTime;
+	if (sp.lifetime <= sp.fuse) // TODO refactor float comparison
+	{
+		// moving
+		sp.x += sp.vx * deltaTime;
+		sp.y += (sp.vy + Gravity) * deltaTime;
+	}
+	else
+	{
+		// spark expires
+		if (!Exploded)
+		{
+			Exploded = true;
 		}
 	}
 }

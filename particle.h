@@ -26,7 +26,7 @@ public:
 
 	virtual void Update(float deltaTime);
 
-	bool GetStatusofExplosion() const { return Exploded; }
+	virtual bool GetStatusofExplosion() const { return Exploded; }
 	virtual float GetX() const { return p.x; }
 	virtual float GetY() const { return p.y; }
 	virtual void SetX(float _x) { p.x = _x; }
@@ -34,7 +34,7 @@ public:
 	float GetAngle() const { return p.angle; }
 	float GetLifetime() const { return p.lifetime; }
 	float GetFuse() const { return p.fuse; }
-	void SetCoordinates(float _x, float _y) { p.x = _x; p.y = _y; }
+	//void SetCoordinates(float _x, float _y) { p.x = _x; p.y = _y; }
 
 
 private:
@@ -42,12 +42,31 @@ private:
 	bool Exploded = false;
 	//short ExlosionType = 0;
 };
-//
-//class SmallProjectile : public Projectile
-//{
-//
-//};
-//
+
+class SmallProjectile : public Projectile
+{
+public:
+	SmallProjectile();
+	SmallProjectile(const Projectile& pa);
+	~SmallProjectile() = default;
+
+	void Update(float deltaTime) override;
+	bool IsExploded() { return Exploded; }
+
+	bool IsExploded() const { return Exploded; }
+	bool GetStatusofExplosion() const { return Exploded; }
+	float GetX() const { return sp.x; }
+	float GetY() const { return sp.y; }
+	void SetX(float _x) { sp.x = _x; }
+	void SetY(float _y) { sp.y = _y; }
+	float GetAngle() const { return sp.angle; }
+	float GetLifetime() const { return sp.lifetime; }
+	float GetFuse() const { return sp.fuse; }
+private:
+	Particle sp;
+	bool Exploded = false;
+};
+
 class Spark : public Projectile
 {
 public:
