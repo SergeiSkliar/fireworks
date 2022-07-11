@@ -96,15 +96,13 @@ void FireworksManager::UpdateFireworkManager()
 		Delay = RandomFloat(2.0) + 0.4;
 		Projectile temp_proj(512.0, 786.0);
 		vecProjectiles.push_back(temp_proj);
-		std::cout << vecProjectiles.size() << std::endl;
-		Spark temp_spark(temp_proj);
+		//std::cout << vecProjectiles.size() << std::endl;
+		//Spark temp_spark(temp_proj);
 	}
 
 	for (auto& p : vecProjectiles)
 	{
 		p.Update(deltaTime);
-		//cout << p.GetX() << endl;
-		//cout << p.GetY() << endl;
 		if (p.GetStatusofExplosion())
 		{
 			ExplodeProjectile(p, deltaTime);
@@ -114,10 +112,12 @@ void FireworksManager::UpdateFireworkManager()
 	for (auto& sp : vecSmallProjs)
 	{
 		sp.Update(deltaTime);
+		//cout << vecSmallProjs.size() << endl;
 		if (sp.IsExploded())
 		{
 			ExplodeSmallProjectile(sp, deltaTime);
 		}
+		//sp.SetExpired(true);
 	}
 
 	for (auto& s : vecSparks)
@@ -146,7 +146,7 @@ void FireworksManager::Draw()
 {
 	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 0);
 	SDL_RenderClear(mRenderer);
-	for (auto& p : vecProjectiles)
+	for (const auto& p : vecProjectiles)
 	{
 		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
@@ -157,26 +157,26 @@ void FireworksManager::Draw()
 		proj.h = thickness;
 		SDL_RenderFillRect(mRenderer, &proj);
 	}
-	for (auto& sp : vecSmallProjs)
+	for (const auto& sp : vecSmallProjs)
 	{
 		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
-		SDL_Rect spa;
-		spa.x = static_cast<int>(sp.GetX() - thickness);
-		spa.y = static_cast<int>(sp.GetY() - thickness);
-		spa.w = thickness * 0.75;
-		spa.h = thickness * 0.75;
-		SDL_RenderFillRect(mRenderer, &spa);
+		SDL_Rect spr;
+		spr.x = static_cast<int>(sp.GetX() - thickness);
+		spr.y = static_cast<int>(sp.GetY() - thickness);
+		spr.w = thickness * 0.80;
+		spr.h = thickness * 0.80;
+		SDL_RenderFillRect(mRenderer, &spr);
 	}
-	for (auto& s : vecSparks)
+	for (const auto& s : vecSparks)
 	{
 		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
 		SDL_Rect spa;
 		spa.x = static_cast<int>(s.GetX() - thickness);
 		spa.y = static_cast<int>(s.GetY() - thickness);
-		spa.w = thickness * 0.75;
-		spa.h = thickness * 0.75;
+		spa.w = thickness * 0.55;
+		spa.h = thickness * 0.55;
 		SDL_RenderFillRect(mRenderer, &spa);
 	}
 	SDL_RenderPresent(mRenderer);
@@ -201,6 +201,7 @@ void FireworksManager::ExplodeProjectile(const Projectile& p, float deltaTime)
 		{
 			SmallProjectile sp(p);
 			vecSmallProjs.push_back(sp);
+			cout << vecSmallProjs.size() << endl;
 		}
 	}
 }

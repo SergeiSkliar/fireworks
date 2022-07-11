@@ -46,21 +46,10 @@ void Projectile::Update(float deltaTime)
 	}
 	else
 	{
-		// choose explosion type
-		// 1 - small projectiles
-		// 2 - sparks
+		// explode
 		if (!Exploded)
 		{
 			Exploded = true;
-			//ExlosionType = RandomFloat(1);
-			//if (ExlosionType == 0)
-			//{
-				// ExplodeSparks(p.x,p.y,RandomInt(100) + 15);
-			//}
-			//else
-			//{
-			//	ExplodeSmallProj(RandomFloat(2));
-			//}
 		}
 	}
 }
@@ -96,6 +85,24 @@ Spark::Spark(const Projectile& pa)
 	spark.vy = sinf(spark.angle) * pa.GetLifetime() * spark.speed;
 
 	spark.fuse = pa.GetLifetime() / 2;
+}
+
+Spark::Spark(const SmallProjectile& sp)
+{
+	spark.x = sp.GetX();
+	spark.y = sp.GetY();
+	spark.lifetime = 0.0;
+
+	spark.angle = RandomFloat(2.0 * PI);
+	//spark.vx = cosf(spark.angle) * spark.speed;
+	//spark.vy = sinf(spark.angle) * spark.speed;
+	//spark.speed = RandomFloat(2.0) * sp.GetSpeed();
+	spark.speed = RandomFloat(50);
+
+	spark.vx = cosf(spark.angle) * sp.GetLifetime() * spark.speed;
+	spark.vy = sinf(spark.angle) * sp.GetLifetime() * spark.speed;
+
+	spark.fuse = sp.GetLifetime() / 2;
 }
 
 void Spark::Update(float deltaTime)
@@ -136,12 +143,12 @@ SmallProjectile::SmallProjectile(const Projectile& pa)
 	sp.y = pa.GetY();
 	sp.lifetime = 0.0;
 
-	sp.angle = RandomFloat(2.0 * PI);
+	sp.angle = RandomFloat(100) - 50;
 	//spark.vx = cosf(spark.angle) * spark.speed;
 	//spark.vy = sinf(spark.angle) * spark.speed;
-	sp.speed = RandomFloat(50.0);
-	sp.vx = cosf(sp.angle) * pa.GetLifetime() * sp.speed;
-	sp.vy = sinf(sp.angle) * pa.GetLifetime() * sp.speed;
+	sp.speed = RandomFloat(2.0);
+	sp.vx = pa.GetVX() * sp.speed + sp.angle;
+	sp.vy = pa.GetVY() * sp.speed;
 
 	sp.fuse = pa.GetLifetime() / 2;
 }
@@ -157,10 +164,10 @@ void SmallProjectile::Update(float deltaTime)
 	}
 	else
 	{
-		// spark expires
-		if (!Exploded)
+		// small explodes
+		if (!SmallExploded)
 		{
-			Exploded = true;
+			SmallExploded = true;
 		}
 	}
 }

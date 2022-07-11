@@ -24,6 +24,7 @@
     <ProjectGuid>{59c7e3db-ac91-4455-bd74-55c2586dba68}</ProjectGuid>
     <RootNamespace>fireworktestassignment</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>firework_playground</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

@@ -31,6 +31,10 @@ public:
 	virtual float GetY() const { return p.y; }
 	virtual void SetX(float _x) { p.x = _x; }
 	virtual void SetY(float _y) { p.y = _y; }
+	float GetVX() const { return p.vx; }
+	float GetVY() const { return p.vy; }
+	virtual float GetSpeed() const { return p.speed; }
+
 	float GetAngle() const { return p.angle; }
 	float GetLifetime() const { return p.lifetime; }
 	float GetFuse() const { return p.fuse; }
@@ -51,20 +55,22 @@ public:
 	~SmallProjectile() = default;
 
 	void Update(float deltaTime) override;
-	bool IsExploded() { return Exploded; }
 
-	bool IsExploded() const { return Exploded; }
-	bool GetStatusofExplosion() const { return Exploded; }
+	bool IsExploded() const { return SmallExploded; }
 	float GetX() const { return sp.x; }
 	float GetY() const { return sp.y; }
 	void SetX(float _x) { sp.x = _x; }
 	void SetY(float _y) { sp.y = _y; }
+	float GetSpeed() const { return sp.speed; }
 	float GetAngle() const { return sp.angle; }
 	float GetLifetime() const { return sp.lifetime; }
 	float GetFuse() const { return sp.fuse; }
+	bool IsExpired() const { return SmallExpired; }
+	void SetExpired(bool e) { SmallExpired = true; }
 private:
 	Particle sp;
-	bool Exploded = false;
+	bool SmallExploded = false;
+	bool SmallExpired = false;
 };
 
 class Spark : public Projectile
@@ -72,6 +78,7 @@ class Spark : public Projectile
 public:
 	Spark();
 	Spark(const Projectile& pa);
+	Spark(const SmallProjectile& sp);
 	~Spark() = default;
 
 	virtual float GetX() const { return spark.x; }
