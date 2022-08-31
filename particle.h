@@ -15,6 +15,9 @@ struct Particle
 	float speed = 0.0;
 	float lifetime = 0.0;
 	float fuse = 0.0;
+	short colorR = 255;
+	short colorG = 255;
+	short colorB = 255;
 };
 
 class Projectile
@@ -38,13 +41,10 @@ public:
 	float GetAngle() const { return p.angle; }
 	float GetLifetime() const { return p.lifetime; }
 	float GetFuse() const { return p.fuse; }
-	//void SetCoordinates(float _x, float _y) { p.x = _x; p.y = _y; }
-
 
 private:
 	Particle p;
 	bool Exploded = false;
-	//short ExlosionType = 0;
 };
 
 class SmallProjectile : public Projectile
@@ -85,6 +85,10 @@ public:
 	virtual float GetY() const { return spark.y; }
 	virtual void SetX(float _x) { spark.x = _x; }
 	virtual void SetY(float _y) { spark.y = _y; }
+	short GetColorR() const { return spark.colorR; }
+	short GetColorG() const { return spark.colorG; }
+	short GetColorB() const { return spark.colorB; }
+	short ColorRandom() { return rand() % 256; }
 
 	bool IsExpired() const { return Expired; }
 	void Update(float deltaTime) override;

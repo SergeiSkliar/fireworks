@@ -7,10 +7,7 @@ Projectile::Projectile()
 	p.x = 0;
 	p.y = 0;
 	p.lifetime = 0.0;
-	//p.speed = RandomFloat(50);
-	//cout << p.speed << endl;
 	p.angle = RandomFloat(100.0) - 50.0;
-	//cout << p.angle << endl;
 	p.vx = p.angle;
 	p.vy = -100.0;
 
@@ -22,8 +19,6 @@ Projectile::Projectile(float _x, float _y)
 	p.x = _x;
 	p.y = _y;
 	p.lifetime = 0.0;
-	//p.speed = RandomFloat(50) + 100;
-	//cout << p.speed << endl;
 	p.angle = RandomFloat(100.0) - 50.0;
 
 	p.vx = p.angle;
@@ -31,7 +26,6 @@ Projectile::Projectile(float _x, float _y)
 
 	p.fuse = RandomFloat(2.0) + 1.5;
 }
-
 
 void Projectile::Update(float deltaTime)
 {
@@ -54,10 +48,6 @@ void Projectile::Update(float deltaTime)
 	}
 }
 
-
-
-
-
 Spark::Spark()
 {
 	spark.x = 0;
@@ -78,13 +68,15 @@ Spark::Spark(const Projectile& pa)
 	spark.lifetime = 0.0;
 
 	spark.angle = RandomFloat(2.0 * PI);
-	//spark.vx = cosf(spark.angle) * spark.speed;
-	//spark.vy = sinf(spark.angle) * spark.speed;
 	spark.speed = RandomFloat(50.0);
 	spark.vx = cosf(spark.angle) * pa.GetLifetime() * spark.speed;
 	spark.vy = sinf(spark.angle) * pa.GetLifetime() * spark.speed;
 
 	spark.fuse = pa.GetLifetime() / 2;
+	spark.colorR = ColorRandom();
+	spark.colorG = ColorRandom();
+	spark.colorB = ColorRandom();
+
 }
 
 Spark::Spark(const SmallProjectile& sp)
@@ -94,15 +86,15 @@ Spark::Spark(const SmallProjectile& sp)
 	spark.lifetime = 0.0;
 
 	spark.angle = RandomFloat(2.0 * PI);
-	//spark.vx = cosf(spark.angle) * spark.speed;
-	//spark.vy = sinf(spark.angle) * spark.speed;
-	//spark.speed = RandomFloat(2.0) * sp.GetSpeed();
 	spark.speed = RandomFloat(50);
 
 	spark.vx = cosf(spark.angle) * sp.GetLifetime() * spark.speed;
 	spark.vy = sinf(spark.angle) * sp.GetLifetime() * spark.speed;
 
 	spark.fuse = sp.GetLifetime() / 2;
+	spark.colorR = ColorRandom();
+	spark.colorG = ColorRandom();
+	spark.colorB = ColorRandom();
 }
 
 void Spark::Update(float deltaTime)
@@ -144,8 +136,6 @@ SmallProjectile::SmallProjectile(const Projectile& pa)
 	sp.lifetime = 0.0;
 
 	sp.angle = RandomFloat(100) - 50;
-	//spark.vx = cosf(spark.angle) * spark.speed;
-	//spark.vy = sinf(spark.angle) * spark.speed;
 	sp.speed = RandomFloat(2.0);
 	sp.vx = pa.GetVX() * sp.speed + sp.angle;
 	sp.vy = pa.GetVY() * sp.speed;
